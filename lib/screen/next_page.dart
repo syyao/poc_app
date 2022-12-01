@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:poc_app/provider/counter_provider.dart';
 import 'package:poc_app/screen/lock_page.dart';
+import 'package:poc_app/widget/lestener_widget.dart';
 import 'package:provider/provider.dart';
 
 class NextPage extends StatefulWidget {
@@ -11,30 +12,9 @@ class NextPage extends StatefulWidget {
 }
 
 class _NextPageState extends State<NextPage> {
-  late Counter counterProvider;
-
-  @override
-  void initState() {
-    counterProvider = context.read<Counter>();
-
-    super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   counterProvider.startTimer(context);
-    // });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Listener(
-      onPointerDown: (PointerEvent details) {
-        counterProvider.startTimer(context);
-      },
-      onPointerMove: (PointerEvent details) {
-        counterProvider.startTimer(context);
-      },
-      onPointerUp: (PointerEvent details) {
-        counterProvider.startTimer(context);
-      },
+    return ListenerWidget(
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Provider example'),
