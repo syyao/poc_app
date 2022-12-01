@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:poc_app/provider/counter_provider.dart';
+import 'package:poc_app/screen/lock_page.dart';
+import 'package:poc_app/screen/next_page.dart';
 import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -10,41 +12,47 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late Counter counter;
-  startTimer() {
-    counter.startTimer(context);
-  }
+  late Counter counterProvider;
 
   @override
   void initState() {
-    counter = context.read<Counter>();
+    counterProvider = context.read<Counter>();
+
     super.initState();
-    startTimer();
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   counterProvider.startTimer(context);
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     return Listener(
-      onPointerDown: counter.incrementDown,
-      onPointerMove: counter.updateLocation,
-      onPointerUp: counter.incrementUp,
+      onPointerDown: (PointerEvent details) {
+        counterProvider.startTimer(context);
+      },
+      onPointerMove: (PointerEvent details) {
+        counterProvider.startTimer(context);
+      },
+      onPointerUp: (PointerEvent details) {
+        counterProvider.startTimer(context);
+      },
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Provider example'),
         ),
-        body: ListView(
-          children: <Widget>[
-            Column(
-              children: [
-                Text('You have pushed the button this many times:'),
-                Text(
-                  // Calls `context.watch` to make [Count] rebuild when
-                  // [Counter] changes.
-                  '${context.watch<Counter>().count}',
-                  key: const Key('counterState'),
-                  style: Theme.of(context).textTheme.headlineMedium,
-                )
-              ],
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'You have pushed the button this many times:',
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              // Calls `context.watch` to make [Count] rebuild when
+              // [Counter] changes.
+              '${context.watch<Counter>().count}',
+              key: const Key('counterState'),
+              style: Theme.of(context).textTheme.headlineMedium,
             )
           ],
         ),
@@ -53,7 +61,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
           // Calls `context.read` instead of `context.watch` so
           // that it does not rebuild when [Counter] changes.
-          onPressed: () => context.read<Counter>().increment(),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return NextPage();
+            }));
+          },
           tooltip: 'Increment',
           child: const Icon(Icons.add),
         ),

@@ -7,8 +7,7 @@ class Counter with ChangeNotifier {
   int _count = 0;
 
   int get count => _count;
-  int _downCounter = 0;
-  int _upCounter = 0;
+
   double x = 0.0;
   double y = 0.0;
 
@@ -21,13 +20,12 @@ class Counter with ChangeNotifier {
   int _counter = 0;
   Timer? _timer;
   gotoLockScreen(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => LockScreen()),
-      // (Route<dynamic> route) => false
-    );
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => LockScreen()),
+        (Route<dynamic> route) => false);
   }
 
-  void startTimer(BuildContext context) {
+  startTimer(BuildContext context) {
     _counter = 15;
     if (_timer != null) {
       _timer?.cancel();
@@ -45,22 +43,19 @@ class Counter with ChangeNotifier {
   }
 
   //FIN
-  void incrementDown(PointerEvent details) {
+  incrementDown(PointerEvent details) {
     updateLocation(details);
 
-    _downCounter++;
     notifyListeners();
   }
 
-  void incrementUp(PointerEvent details) {
+  incrementUp(PointerEvent details) {
     updateLocation(details);
 
-    _upCounter++;
-    startTimer;
     notifyListeners();
   }
 
-  void updateLocation(PointerEvent details) {
+  updateLocation(PointerEvent details) {
     x = details.position.dx;
     y = details.position.dy;
     notifyListeners();
