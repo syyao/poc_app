@@ -4,6 +4,8 @@ import 'package:poc_app/screen/lock_page.dart';
 import 'package:poc_app/screen/next_page.dart';
 import 'package:provider/provider.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 class ListenerWidget extends StatefulWidget {
   final Widget child;
   const ListenerWidget({Key? key, required this.child}) : super(key: key);

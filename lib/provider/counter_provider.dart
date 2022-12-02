@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:poc_app/screen/lock_page.dart';
 
+import '../widget/lestener_widget.dart';
+
 class Counter with ChangeNotifier {
   int _count = 0;
 
@@ -20,8 +22,14 @@ class Counter with ChangeNotifier {
   int _counter = 0;
   Timer? _timer;
   gotoLockScreen(BuildContext context) {
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => LockScreen()),
+    // Navigator.of(context).pushAndRemoveUntil(
+    //     MaterialPageRoute(builder: (context) => LockScreen()),
+    //     (Route<dynamic> route) => false);
+
+    navigatorKey.currentState!.pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (BuildContext context) => const LockScreen(),
+        ),
         (Route<dynamic> route) => false);
   }
 

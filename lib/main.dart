@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poc_app/widget/lestener_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'provider/counter_provider.dart';
@@ -12,7 +13,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (context) => Counter()),
       ],
-      child: const MyApp(),
+      child: ListenerWidget(child: const MyApp()),
     ),
   );
 }
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      navigatorKey: navigatorKey,
       theme: ThemeData(
         // This is the theme of your application.
         //
